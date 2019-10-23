@@ -24,13 +24,26 @@
 			height: 400px;
 		}
 	</style>
-    
+	  <script>
+    function PrintScript() {
+    //印刷範囲を設定
+    htmlcode = window.document.body.innerHTML; 
+    sprnstr  = "<!--PrintStart-->"; 
+    eprnstr  = "<!--PrintEnd-->"; 
+    var prnhtml = htmlcode.substr(htmlcode.indexOf(sprnstr)+sprnstr.length); 
+    prnhtml = prnhtml.substring(0,prnhtml.indexOf(eprnstr)); 
+    window.document.body.innerHTML = prnhtml; 
+    window.print(); 
+    window.document.body.innerHTML = htmlcode;
+}
+	  </script>
   </head>
   <body>
 <h1>酒田市地震ハザードマップ</h1>
-
+	  <a onClick="PrintScript();"><image src="printer.png" alt="印刷"/></a>
+<!--PrintStart-->
 <div id="map" style="height: 500px; width: 800px;"></div>
-
+<!--PrintEnd-->
 
 <script>
 var m_mono = new L.tileLayer('https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png', {

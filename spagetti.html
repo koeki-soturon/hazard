@@ -12,7 +12,8 @@
     integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
     crossorigin=""></script>
     
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.4/leaflet-omnivore.min.js"></script>
+
     
 	<style>
 		html, body {
@@ -59,6 +60,22 @@ var map = L.map('map', {
     zoomControl: true,
     layers: [o_std]
 });
+
+var ParkIcon = L.icon({
+iconUrl: 'sample.png',
+iconRetinaUrl: 'sample.png',
+iconSize: [50, 50],
+iconAnchor: [25, 20],
+popupAnchor: [0, -30]
+});
+
+var Map_KML_Property = L.geoJson(null, {
+pointToLayer: function (feature, layer) {
+return L.marker(layer, { icon: ParkIcon });
+}}).addTo(map);
+
+var Map_KML = omnivore.kml('map.kml', null, Map_KML_Property);
+
 
 var Map_BaseLayer = {
     "MIERUNE地図 color": m_color,

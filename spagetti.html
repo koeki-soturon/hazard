@@ -116,13 +116,13 @@ dd = L.marker([38.14350, 140.58775]).bindPopup('DD'),
 ee = L.marker([38.14989, 140.59094]).bindPopup('EE'),
 ff = L.marker([38.15958, 140.60608]).bindPopup('FF');
 
-var 過去の地震 = L.layerGroup([aa, bb]);
+var restaurants = L.layerGroup([aa, bb]);
 var sport = L.layerGroup([cc, dd]);
 var sights = L.layerGroup([ee, ff]);
 var overlayMaps = {
-"Restaurants": restaurants,
-"Sport": sport,
-"Sights": sights
+"過去の地震": restaurants,
+"津波到達度": sport,
+"洪水の避難所": sights
 };
 
 L.control.layers(overlayMaps).addTo(map);

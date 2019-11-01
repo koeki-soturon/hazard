@@ -101,46 +101,6 @@ var Map_BaseLayer = {
 };
 
 
-
-L.control.layers(Map_BaseLayer, null, {
-    collapsed: true
-}).addTo(map);
-
-var Polygon = L.polygon([
-    [38.933349251235025,139.82017813110352],
-    [38.93010157813001,139.830188587188718],
-    [38.92855478492641,139.851227210998535],
-    [38.907757812281115,139.85062358093262],
-    [38.90731553740134,139.84943082427979],
-    [38.91009897115985,139.84844173431396],
-    [38.908923346539084,139.85001013641357],
-    [38.908949251235025,139.84007813110352]
-],{
-    "color": "#3399ff",
-    "weight": 3,
-    "opacity": 0.8,
-    "fillColor": "#3399ff",
-    "fillOpacity": 0.4
-}).addTo(map);
-
-var Polygon = L.polygon([
-    [38.923349251235025,139.82117813110352],
-    [38.91310157813001,139.830188587188718],
-[38.90355478492641,139.850227210998535],
-    [38.893757812281115,139.850962358093262],
-    [38.89431553740134,139.84943082427979],
-    [38.88469897115985,139.84834173431396],
-    [38.875923346539084,139.84881013641357],
-    [38.876949251235025,139.83937813110352]
-],{
-    "color": "#0effb1",
-    "weight": 3,
-    "opacity": 0.8,
-    "fillColor": "#0effb1",
-    "fillOpacity": 0.4
-}).addTo(map);
-
-
 var sampleIcon = L.icon({
     iconUrl: 'sample.png',
     iconRetinaUrl: 'sample.png',
@@ -149,14 +109,14 @@ var sampleIcon = L.icon({
     popupAnchor: [0, -50],
 });
 
-var aa = L.marker([48.185556, 11.620278]).bindPopup('AA'),
-bb = L.marker([48.152222, 11.592778]).bindPopup('BB'),
-cc = L.marker([48.161209, 11.597989]).bindPopup('CC'),
-dd = L.marker([48.14350, 11.58775]).bindPopup('DD'),
-ee = L.marker([48.14989, 11.59094]).bindPopup('EE'),
-ff = L.marker([48.15958, 11.60608]).bindPopup('FF');
+var aa = L.marker([38.9, 139.25]).bindPopup('庄内沖地震震央(1833年） <br>震度6の海溝型地震'),
+bb = L.marker([38.9,139.9]).bindPopup(''庄内地震震央(1894年）<br> 震度7の内陸直下型地震'),
+cc = L.marker([38.161209, 140.597989]).bindPopup('CC'),
+dd = L.marker([38.14350, 140.58775]).bindPopup('DD'),
+ee = L.marker([38.14989, 140.59094]).bindPopup('EE'),
+ff = L.marker([38.15958, 140.60608]).bindPopup('FF');
 
-var restaurants = L.layerGroup([aa, bb]);
+var 過去の地震 = L.layerGroup([aa, bb]);
 var sport = L.layerGroup([cc, dd]);
 var sights = L.layerGroup([ee, ff]);
 var overlayMaps = {
@@ -206,14 +166,7 @@ mapMarker.bindPopup(comment).openPopup();
 var mapMarker = L.marker([38.85916599,139.9564960], { icon: sampleIcon }).addTo(map);
 var comment = '啄成学区コミュニティ防災センター駐車場 <br> ';
 mapMarker.bindPopup(comment).openPopup();
-
-var mapMarker = L.marker([38.9,139.25], { icon: sampleIcon }).addTo(map);
-var comment = '庄内沖地震震央(1833年） <br>震度6の海溝型地震';
-mapMarker.bindPopup(comment).openPopup();
-
-var mapMarker = L.marker([38.9,139.9], { icon: sampleIcon }).addTo(map);
-var comment = '庄内地震震央(1894年）<br> 震度7の内陸直下型地震';
-mapMarker.bindPopup(comment).openPopup();
+38.9,139.9
 
  //クリックすると経緯度が出る
 map.on('click', function(e) {

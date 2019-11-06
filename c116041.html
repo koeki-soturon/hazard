@@ -79,8 +79,8 @@ var map = L.map('map', {
 });
 
 var ParkIcon = L.icon({
-iconUrl: 'sample.png',
-iconRetinaUrl: 'sample.png',
+iconUrl: 'favicon.ico',
+iconRetinaUrl: 'favicon.ico',
 iconSize: [50, 50],
 iconAnchor: [25, 20],
 popupAnchor: [0, -30]
@@ -122,11 +122,11 @@ var overlayMaps = {
 
 L.control.layers(overlayMaps).addTo(map);
 
-var mapMarker = L.marker([38.9039735,139.836983], { icon: L.spriteIcon()}).addTo(map);
+var mapMarker = L.marker([38.9039735,139.836983], { icon: L.spriteIcon('orange')}).addTo(map);
 var comment = '若竹西公園 <br>日本海〜最上川汽水域にある公園なので震度５以上の強い地震の場合はこの公園への避難はやめた方が良い。規模は狭めで３０人以上の避難は適していない。';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.9029631,139.8471038], { icon:  L.spriteIcon()}).addTo(map);
+var mapMarker = L.marker([38.9029631,139.8471038], { icon:  L.spriteIcon('yellow')}).addTo(map);
 var comment = '亀ヶ崎公園 <br> かなり広めで水飲み場もあり、内陸部に作られているので巨大地震が発生した際の避難には最適。城跡ということもあり頑丈な石垣もあるので津波に強い。';
 mapMarker.bindPopup(comment).openPopup();
 
@@ -134,31 +134,31 @@ var mapMarker = L.marker([38.9060723,139.8429659], { icon:  L.spriteIcon() }).ad
 var comment = '亀ヶ崎小学校 <br> ';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.9190069,139.82804829], { icon:  L.spriteIcon()}).addTo(map);
+var mapMarker = L.marker([38.9190069,139.82804829], { icon:  L.spriteIcon('green')}).addTo(map);
 var comment = '日和山公園 <br>高台に作られているため巨大地震が発生した際の避難には最適。ただし避難後の混雑は注意しておいた方が良い。 ';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.85916599,139.9564960], { icon:  L.spriteIcon() }).addTo(map);
+var mapMarker = L.marker([38.85916599,139.9564960], { icon:  L.spriteIcon('red') }).addTo(map);
 var comment = 'sample <br> 北新町一丁目公園';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.8936044,139.8191921], { icon:  L.spriteIcon() }).addTo(map);
+var mapMarker = L.marker([38.8936044,139.8191921], { icon:  L.spriteIcon('yellow') }).addTo(map);
 var comment = '東北公益文科大学南駐車場 <br> 高台に作られているため津波が到達する心配は低め。ただ海側に近いので地震が収まったら内陸の方へ移動した方が良い。';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.90241,139.81372639], { icon:  L.spriteIcon() }).addTo(map);
+var mapMarker = L.marker([38.90241,139.81372639], { icon:  L.spriteIcon('red') }).addTo(map);
 var comment = '若宮町一丁目公園 <br>二丁目と違い、やや山地の方に作られているが、海側であるため一時的な避難でしか適していない。 ';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.8989167,139.8095490], { icon:  L.spriteIcon() }).addTo(map);
+var mapMarker = L.marker([38.8989167,139.8095490], { icon:  L.spriteIcon('red') }).addTo(map);
 var comment = '若宮町二丁目公園 <br>やや広いため、地震の避難場所としては有能であるが、日本海に近いので巨大地震の場合は津波の恐れあり。 ';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.9026232,139.8220933], { icon:  L.spriteIcon()}).addTo(map);
+var mapMarker = L.marker([38.9026232,139.8220933], { icon:  L.spriteIcon('yellow')}).addTo(map);
 var comment = ' 高見台一丁目公園 <br>';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.85916599,139.9564960], { icon:  L.spriteIcon() }).addTo(map);
+var mapMarker = L.marker([38.85916599,139.9564960], { icon:  L.spriteIcon('yellow') }).addTo(map);
 var comment = '啄成学区コミュニティ防災センター駐車場 <br> ';
 mapMarker.bindPopup(comment).openPopup();
 38.9,139.9

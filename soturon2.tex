@@ -1,0 +1,231 @@
+\documentclass[report]{jsbook}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
+\thispagestyle{empty}
+\addtolength{\topmargin}{-2cm}
+\addtolength{\textheight}{3cm}
+\addtolength{\textwidth}{1cm}
+\addtolength{\oddsidemargin}{-0.5cm}
+\addtolength{\evensidemargin}{0.5cm}
+\usepackage{ulem,color,graphicx,eclbkbox}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\title{leafletRを用いたハザードマップについて}
+\author{4年 C1160416 小野寺寛之 \\
+}
+\date{令和元年8月11日}
+\begin{document}
+\onecolumn   
+  \maketitle
+
+  \tableofcontents
+  \clearpage
+\chapter{背景}
+2011年に東日本大震災が発生して以来、我が国は３度の巨大地震に巻き込まれてきた。地震の発生率もそれまでよりも大幅に上昇しており、南海トラフ等の超巨大地震も発生する確率も高いという話もよく聞く。巨大な地震は津波や火災などの二次災害を引き起こし、社会の存続に大きな障害を残しかねない。そこでこれまでのハザードマップにあった危険地域が抜けている等の問題を解消し、インターネットでの表示に限らず印刷できるようにすることで、高齢者でも用いやすい地図を作ろうと考えた。
+\begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.2]{attach_1_org.jpg}
+    \caption{図1:震災による被害で倒壊した家屋 出典：消防科学総合センター}
+   \end{figure}
+\end{center}
+
+\chapter{目的}
+結論を先に言うと「巨大地震による犠牲者を増やさないようにしたい」というのが目的である。
+現代のハザードマップは自然災害のリスクを予測でき、紙情報からインターネット上で気軽に詳細な情報が入手できるようになった。しかし、自然災害はあらかじめ回避することも、抑制することもできないため、事前に避難する対策を進めていく必要がある。人命は何よりも大切な資源であるため、地震被害によって社会の存続に損失を与えるだけでなく、残された人々にも大きな心の傷を残しかねない。
+\chapter{前年度の研究との関連性}
+地震ハザードマップについての最新の記事である「近年の災害が提起したハザードマップの課題(2016年）」と自分の研究を比較して気づいた点は、工学と地理学の手法を組み合わせてマップを作成しているところである。これによって活断層の分布や、地形の隣接関係による危険性の差異を理解することができ、震災が発生した場合の被害を予測し、計画を立て易くなる。しかし、人工的な土地の変化を予測できず、地表に出現する断層の位置を予知することができないという弱点もある。自分の研究では最新のハザードマップと同じく活断層の分布を取り入れつつも、人間の避難を重視した地図を作成することを軸としている[4]。
+\section{ハザードマップの歴史}
+自然災害の記録を記した地図は江戸中期までさかのぼる。現在のようなハザードマップが作成されるのは1994年からである。当時は紙ベースだったので、保管や配布の方法が問題視されていた。2000年代のインターネットの普及により、ネット上でも見られるようになり、より本格的な研究が行われるようになった。2011年からは大手WebGISであるGoogle Mapが参入し、重要な情報を多く入手することが可能となった。 
+\subsection{既存の研究の問題点}
+ハザードマップは東日本大震災以降に大幅な見直しがなされることになったが、計算結果に依存しすぎて予測の不確実性が考慮できていなかったこと、地質条件や地形に合わせた避難の仕方が明記されていなかったことが2016年に明らかとなった。特に、地震や津波のハザードマップは災害像を予想しにくいため、発生源や断層、地域防災単位、過去に発生した地震の情報等の表記が必要である。また、行政や非営利団体による斡旋が上手く行かず、ハザードマップの認知度が極めて低いのも現状である。
+\subsubsection{Webハザードマップの問題点}
+今日の携帯端末の普及により、ハザードマップもデジタル化での普及が進んできた。しかし、電子化を行っても様々な問題点が潜んでいる。ここでは３つの代表的な問題点を取り上げる。
+\begin{description}
+\item[扱いにくい]デジタル化した機器はパソコンやスマートフォンなどの情報端末を所持しており、且つ扱える人でないと使うことは難しい。よって、情報機器を触れた事の無い人、情報機器を持ってなかったり、傷病によって情報機器を扱うことができない人はハザードマップを使うことは困難を極める。また、ハザードマップは非常に特殊なページなので慣れていないと分からない所も数多く存在する。
+\item[オフライン時に使いにくい]情報端末はインターネット環境が無いとWebサイトを開くことができない。しかも電化製品であるため、停電や落雷、水に触れるなどのトラブルに弱いため、簡単に使えなくなる。オフライン環境でもGoogle Chromeであれば事前にダウンロードをして閲覧が可能であるが、情報端末が壊れていたり、エネルギーが尽きていた場合は意味を成さない。しかし紙媒体は管理次第では長く保つことができ、使いたい時にすぐ出して使えるので多くの自治体では未だに紙媒体のハザードマップを推奨している。
+  \end{description}
+\begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.4]{photo2.png}
+    \caption{図2:ハザードマップの認知度の統計　出典：中央大学理工学部都市環境学科　河川・水文研究室}
+   \end{figure}
+\end{center}
+\subsubsection{既存のハザードマップの問題点}
+\begin{description}
+\item[もしもの事態に対処していない]：既存のマップには頻繁に発生する小さな地震が優先して表記されるということである。なので、何千年に一度起こるか起こらないかというような大規模な地震に関するデータは後回しにされやすくなる。そのため、明記できてないために、大きな被害を被った事例が東日本大震災の事例である。宮城、福島含む三陸沖は869年に貞観地震、1611年には慶長三陸沖地震という東日本大震災と同じ規模の地震が発生しているが、数百年という長い年月で発生しているため明記できておらず、対策も出来ていなかった[1]。
+\item[被害が大きいと予想される地域が表記されていない]：これは2016年に発生した熊本地震での事例である。熊本地震では、西原村と益城町では震度7を記録した。しかしハザードマップではその情報が明記されておらず、対策もままならないまま被害を被ってしまった。
+\item[避難所のマーカーが本当の意味を成していない]：近くに避難所があったとしても、二次災害による別の被害を被っていたり、倒壊した建物や道路の亀裂等で避難所に行けなかったりする場合がある。
+\end{description}
+\chapter{研究過程}
+\section{災害地域としての庄内地域}
+酒田市を含む庄内地域は災害が少ない。２０１１年の東日本大震災では、隣の宮城県が多大な被害を被ったのに対し、山形県及び庄内地域は特に大きな影響は受けなかった。しかし、庄内地域で発生した地震は18世紀から現在にかけて5回ほど発生しており、決して少なくないことが分かる。また沿岸部ということもあり、津波による二次災害の可能性も否定できないが、庄内平野東縁断層帯という断層もあるため、海溝型、内陸型両方の被害を受けやすい。
+\chapter{leafletRとは}
+本地図はleafletを用いて地図を作成してきたが、leafletRを用いたハザードマップも作成したので研究過程の一環として扱うこととした。「leafletR」とは、統計解析等に用いられるR言語といわれる言語で構成されたサービスである。本項ではleafletRそのものや実際に作った地図についての解説、またはR言語の特殊性について解説していきたいと思う。ただ、本研究は飽くまでもハザードマップの作成についての研究なので、leafletRでの地図の作成過程及び作成に関わったRプログラムの関連性について話を進めていきたい。
+\section{leafletとleafletRの違い}
+leafletとleafletRの大きな違いは、構成言語にある。leafletRはSP空間オブジェクト用の変換ツール、空間ベクトルデータ形式、およびポイント座標にRデータフレームが含まれている。また、アメリカ合衆国農務省やNASAの研究機関であるジェット推進研究所の衛星画像を使うこともleafletRには可能である。
+しかし、国土地理院の地図を表示させることができなかったり、leafletRやこのプログラムを構成するR言語の知名度が低く、コーディングを行っている人も少ないのが現状である。
+\section{leafletRの地図について}
+leafletRの地図を表示する前に、まずはleafletRを作成する方法について説明していきたい。
+\begin{description}
+\item[Rをダウンロードする]
+\item[Rを起動する]
+\item[devtoolsをインストールする]
+\item[devtoolsでleafletRをgithubからインストールする]
+\item[データを読み込む]
+\item[データを作成する]
+\item[プロットスタイルの設定]
+\item[ブラウザで表示する]
+\end{description}
+\subsection{leafletRでの地図の作成例}
+\begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.5]{Rmap.png}
+    \caption{図2:leafletRで作成したWeb地図の例}
+   \end{figure}
+\end{center}
+\begin{lstlisting}[caption=ソースコード1,label=R言語を用いたleafletを表示するためのコード]
+  > library(leafletR)
+ 
+This is leafletR 0.4-0
+ 
+Type changes("leafletR") to see changes/bug fixes, help(leafletR) for documentation
+or citation("leafletR") for how to cite leafletR.
+
+> LocateData <- as.data.frame(cbind(lat = 38.893394, long = 139.820519, landname = "Koeki univarcity"))
+> q.dat <- toGeoJSON(data = LocateData, dest = tempdir(), name = "Koeki univarcity")
+Columns 1 (lat) and 2 (long) detected as latitude and longitude
+Column 'lat' converted from factor to character type
+Column 'long' converted from factor to character type
+Column 'landname' converted from factor to character type
+
+File saved under /tmp/Rtmpun3Xx4/Koeki_univarcity.geojson
+> sty <- styleSingle(col = "red", fill = "red")> q.map <- leaflet(data = q.dat, dest = tempdir(), title = "Koeki univarcity", base.map = "osm", style = sty, popup = "landname", incl.data=TRUE)
+
+Your leaflet map has been saved under /tmp/Rtmpun3Xx4/Koeki_univarcity/Koeki_univarcity.html
+> browseURL(q.map)
+\end{lstlisting}
+\subsubsection{コードの解説}
+\begin{description}
+\item[library(leafletR)]ライブラリからleafletRを選び、読み込む。
+\item[LocateData <- as.data]公益大学の位置が入ったデータを作る。
+\item[q.dat <- toGeoJSON]toGeoJSONを読み込み、位置データを表示させる。
+\item[sty <- styleSingle]プロットのスタイルを設定する。プロットについては次項で説明する。
+\item[q.map <- leaflet(data = q.dat, dest = tempdir()]地図を作成する。
+\item[browseURL(q.map)]Web上で表す。この時点で作成物が表示できれば成功である。
+  \end{description}
+  \subsection{プロットとは}
+  R言語において、作成したコードを図として出力することである。プロットにはplot()という関数が用いられている。この関数はR言語の中で一番使われている関数であるとされている。
+  
+  \section{国土地理院の地殻変動マップについて}
+国土地理院では、2005年3月から地殻変動情報を記載したマップを作成、運営しており、2018年4月24日のデータが最新とされている。過去の地殻の活動や火山の地磁気が記載されているので
+あるが、Windowsでのみ動作確認を行っているので、Linuxでは地殻変動の動きを観測することはできないことになっている。
+\chapter{提案}
+過去の庄内の地震をアーカイブ上にし、被害の大小を色分けした地図を作成する。幅広い層の人が見やすいように危ない地域から赤、オレンジ、黄緑、緑で表すことにした。また、対象地域を酒田市内と定め、酒田市役所や、国土地理院、国土交通省のハザードマップと照らし合わせながら地図を作成することとした。
+\begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.4]{newmap.png}
+    \caption{図3:leaflet機能の一つ、poligonを用いて色分けをした例}
+   \end{figure}
+\end{center}
+\section{ハザードマップの作成}
+ハザードマップの作成には以下のツールを用いた。
+\begin{description}
+\item[leaflet]：JavaScriptを用いた地図API。
+  \item[Geolocation API]:位置情報を読み込むためのAPI。GPSの取得が可能。
+ \item[leafletR]：leafletで用いられる地図の情報をR言語でも用いられるようにしたもの。
+\end{description}
+
+\chapter{主な機能}
+\section{国土交通省のshapeファイル}
+\section{leaflet-omnivore}
+\section{GPS}
+このハザードマップには情報端末機器使用者の位置情報が分かる位置情報サービスが備わっており、青いアイコンで示されていることが分かる。
+\begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.4]{gps.png}
+    \caption{図4:GPSで現在地を示している使用例}
+   \end{figure}
+\end{center}
+\chapter{位置情報ソースコード}
+\begin{lstlisting}[caption=ソースコード2,label=位置情報を表す]
+  function onLocationFound(e) {
+          L.marker(e.latlng).addTo(map).bindPopup("現在地").openPopup();
+      }
+ 
+      function onLocationError(e) {
+          alert("現在地を取得できませんでした。" + e.message);
+      }
+ 
+      map.on('locationfound', onLocationFound);
+      map.on('locationerror', onLocationError);
+ 
+      map.locate({setView: true, maxZoom: 16, timeout: 20000});
+  \end{lstlisting}
+このようにGPSが表示される仕組みは、HTML5の「Geolocation API」を用いているからとされている。そして、ここで疑問が生じる。それを次項で説明する。
+\subsection{なぜJavaScriptでGPSを読み込むことが可能なのか}
+そもそもGPSとは米軍が運用している衛星測位システムという高度な技術である。それをなぜ、
+JavaScript言語のプログラムの一つに過ぎないGeolocation APIで使うことができるのか。
+\subsubsection{Geolocation APIとは}
+Geolocation APIは「Webの規格団体であるW3Cが使用をすすめる規格とされ、JavaScriptで
+  位置情報を取得することが出来る仕組み」であるとされている。では、
+\subsubsection{位置情報を読み込む過程}
+そもそもGPSには２種類あり、「携帯電話の基地から送られる衛星軌道データとGPSの時刻信号を複合させて位置を特定する」ものと、「衛星から送られてきた軌道データとGPSの時刻信号を用いるスタンドアロン」なものがある。このハザードマップで取得できているのは前者であり、多少の時間のズレはあるものの、正確に位置を取得しているのがわかる。
+\subsubsection{GPSの正確性}
+\section{印刷機能}
+情報機器を扱いにくい方々でも用いやすいように、印刷機能も実装した。印刷にはJavaScriptのメソッドの一種のprintを指定し、スクレイピングという機能を用いることで、印刷を可能にした。スクレイピングとは、Webページから情報を集めて加工し、新たな情報として生み出す技術のことである。また、スクレイピングを行うプログラムはスクレイパーと呼ばれる。
+\begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.5]{print2.png}
+    \caption{図5:print＋スクレイピング機能を用いて印刷を行ってみた例}
+   \end{figure}
+\end{center}
+
+\chapter{作成物紹介}
+ハザードマップは使われてもらわないと意味がない。そこでGitHubに自分のプログラムを移行し、公開することとした。下のURLを各情報端末のURL欄に入力してEnterを押せば地図が表示される。ページを開いてすぐ位置情報を読み込むか否かを問われるので、「はい」を入力すれば位置情報の読み込みが可能となる。
+\section{URL}
+https://verokirapter.github.io/hazard-map/spagetti.html
+\section{QRコード}
+\begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.5]{print2.png}
+    \caption{図6:WebハザードマップのQRコード}
+   \end{figure}
+\end{center}
+\chapter{用語集}
+\begin{description}
+\item[地域防災単位]：小学校や町内会を含めた自主防災組織のこと。
+\item[R言語]：1996年にニュージーランドのオークランド大学のRoss Ihaka氏によって
+  　　　　　作られた統計解析向けプログラミング言語。
+  \item[API]:Application Programming Interfaceの略。ソフトウェアとプログラミングを接続するためのインターフェイスである。
+\item[プレート]:地上や海底を支えている土台のことで、フィリピンやことユーラシアなど、様々な種類がある。 地震はこのプレートが重なって、それがずれることで地震が発生する[5]。
+\item[断層]:地震の予測において、どこで大地震が発生するのか把握する基準となるプレートの重なり。
+  　地学界隈では「地震の巣」と呼ばれている。断層のタイプには「震源断層」と「活断層」があり、今後も
+  地震を引き起こす可能性が高い断層が「活断層」と呼ばれている。「震源断層」は地震が発生した際の亀裂
+  を指すので、地震を引き起こす可能性は低い[5]。
+  
+\item[地殻変動]:地球の表面の岩石で構成されている部分が動くことを指し、地震をそのまま表すことにも使われる。2019年6月18時22時に発生した地震において、地震の規模6.7（8が最高と言われている）、深さ14km、最大震度6強の地殻変動が観測された。
+\end{description}
+\chapter{考察}
+
+\chapter{応用}
+\begin{description}
+\item[印刷機能]
+\item[位置情報]
+  \item[座標]
+  \end{description}
+\chapter{今後の展望}
+地震は自然災害であり、変動幅が大きいので時間ごとにポリゴンが動いていくようにしたい。
+また、地震のみならず、洪水や津波はあるので、それらに関するハザードマップを作りたい。
+\begin{thebibliography}{9}
+\bibitem[1]{key1}片山なつ(2018)「伝わるデザイン：研究発表のユニバーサルデザイン」
+  <https://tsutawarudesign.com/miyasuku5.html>(参照2019-09-04).
+\bibitem[2]{key2}岡田義光著(2011)『日本の地震地図：東日本大震災後版』,p.10-11,東京書籍.
+\bibitem[3]{key3}公益社団法人日本地理学会「近年の災害が提起したハザードマップの課題」J-STAGE,2016 (最終閲覧日:2019-09-10)
+  https://www.jstage.jst.go.jp/article/ejgeo/11/1/11-325/-pdf/-char/ja
+\bibitem[4]{key4}佃為成(2007)『地震予知の最新科学』,p.74-91, SoftBank Creative.
+\bibitem[5]{key5}佃為成(2007)『地震予知の最新科学』,p.108-124, SoftBank Creative.
+  \end{thebibliography}
+
+      \end{document}

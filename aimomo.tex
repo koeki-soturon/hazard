@@ -1,0 +1,141 @@
+\documentclass[a4j,twocolumn,dvipdfmx]{jarticle}
+%\documentclass{jarticle}
+
+\thispagestyle{empty}
+\addtolength{\topmargin}{-1cm}
+\addtolength{\textheight}{2cm}
+\addtolength{\textwidth}{1cm}
+\addtolength{\oddsidemargin}{-0.3cm}
+\addtolength{\evensidemargin}{0.3cm}
+\usepackage{ulem,color,graphicx,eclbkbox}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{url}
+\title{酒田市内の防災訓練用ハザードマップ\\アプリケーションについての研究}
+\author{広瀬研究室 4年 C1160416 小野寺寛之 
+  \\
+  }
+\date{令和元年11月07日}
+\begin{document}
+\twocolumn[
+\maketitle
+
+]
+
+\section{\large 背景}
+\textmc{2010年代は「災害の年代」と言っても過言ではなく、津波や台風、洪水といった大きい災害があった。中でも地震は大きいもので４回発生している。酒田市は自然災害による被害は少ないが
+  日本海に面しており、近くには鳥海山のある遊佐町や最上川の汽水域があり、巨大地震が発生した際は津波や洪水が発生する恐れがある。本研究では、この災害からのリスクを減らすハザードマップの研究を行っている。}
+\section{\large 目的}
+\textmc{ハザードマップは認知度が低いため、人々の生命を守る地図として、防災意識が高まりやすい地図を作成しなければならない。しかし、使用対象者は必ずしも大人や若者であるとは限ず、子供や高齢者が扱う可能性もある。さらに、使用状況は平時ではなく、地震発生後やインターネットが使えない状況であるかもしれない。そこで、スマートフォンで手軽に見ることができ、印刷機能を搭載して、非常時やインターネットを扱いにくい人でも使えるハザードマップを作成する。}
+\begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.4]{photo2.png}
+    \caption{ハザードマップの認知度の統計　出典：中央大学理工学部都市環境学科　河川・水文研究室}
+   \end{figure}
+\end{center}
+\section{\large ハザードマップの歴史}
+\textmc{アメリカの地震工学者カール・アリン・コーネルが1968年に地震ハザード分析を提唱して以来、地震の揺れの強さや規模を統計的に測定できるようになった[1]。
+実際に地図として応用されるようになったのは1990年代であり、日本でも防災面の対策として作成が進められてきた。インターネットが普及していない頃のハザードマップは紙媒体でかさばりやすく、信憑性の薄い物であったが、2000年に北海道の有珠山が噴火した際に、ハザードマップを用いて住民が避難した結果[2]、人的被害を抑えることができた功績が注目され、2011年の東日本大震災以降は一般の人にも注目が高まるようになった。}
+\section{\large 既存のハザードマップの問題点}
+\textmc{ハザードマップは災害による被害を最小限度に留めることができるツールであることは確かであるが、自然を相手にしている以上、その期待を裏切る可能性も存在する。また、作成者の誤った判断や些細なミスにより、地図の内容が大きく変わる場合もある。特に、この３つの問題点が挙げられる。}
+\begin{description}
+\item[関心が薄い]\textmc{ハザードマップは防災訓練や、実際に発生した場合以外は使用することが少ないため、主に若い人の認知度が低い。}
+\item[予測が難しい]\textmc{国土地理院やGoogle社から提供される地図を用いたとしても、自然災害であるため、規模や被害状況を予測することが不可能であること。津波から避難するために山手の避難所に行ったとしても地盤の液状化による緩みにより、土砂崩れが発生するかもしれない。
+いつどこで何が起きてもおかしくないため、絶対に安全な避難所など無いことを心がけたい。}
+\item[見落としがある]\textmc{東日本大震災発生時に避難した結果、避難所もろとも津波に巻き込まれたケースが存在する。また2016年の熊本地震では震度７が発生した地域がハザードマップに明記されていなかったことから、ハザードマップへの信頼性が薄らいだ[3]。}
+\end{description}
+\section{\large ハザードマップの重要性}
+\textmc{2019年に「山形県沖地震」が発生しハザードマップの重要性が高まった。まず山形県沖地震についてであるが、この地震の震源は日本海東縁変動帯といわれる[4]。これは数百ｋｍに及ぶプレートのひずみの集合体であり、韓国、ロシア沿岸部、新潟県、山形県で発生する海溝型地震の原因ともなっている。主な地震記録としては1833年の庄内沖地震と、1964年の新潟地震である。さらに、酒田市一帯には「庄内平野東縁断層帯」と呼ばれる活断層があり、その長さは遊佐町から藤島までを含めた38kmである。酒田市の地盤は軟弱な沖積平野上に位置しているため、被害が拡大する恐れがあるという。それ故に酒田市では「酒田市民 防災ガイドブック」の発行や、消防団や自衛隊を含めて行う酒田市合同総合防災訓練を行うなどの取り組みを行っている。}
+  \section{\large 提案}
+ \textmc{ 本研究では、地図の範囲を酒田市周辺と定め、主要構成言語はJavaScript、HTMLとする。Web化にはGithubを用いた。本研究の提案システムの実装にあたっては以下のライブラリを使用した。}
+  \begin{description}
+  \item[leaflet.js]\textmc{JavaScriptのライブラリの一種であり、Web上にタイルベースの地図データを表示することができる。類似したライブラリにOpenLayersやGoogle Maps APIがあるが、leaflet.jsの方がOpenLayersよりも容量が少なく、コードベースが新しく、HTML5やCSS3を利用することで、汎用性が高いのが利点である。また、Google Maps APIはleaflet.jsよりも高速で柔軟性が高いが、Googleサービスでしか使えないという範囲の狭さと、ソース元が民間企業なので許可が必要という問題点があるので、オープンソースであり、広範囲に使えるleaflet.jsより汎用性は低い。leaflet.jsを地図の表示に選んだ理由は、容量が軽く、扱いが容易であるからである。だから、Openlayersを含む数多くの地図ライブラリの中から、一番手馴れているleaflet.jsを地図データの表示に使いたいと考えた。}
+  \item[jQuery]\textmc{Javascriptのライブラリの一種であり、Web上で動かす要素を付けることができる。よく企業のホームページ等で画像をスライドできるページがあるが、これもjQueryによるパフォーマンスの一つである。本研究では、マーカーと地図タイルの切り替えにjQueryを用いた。なぜならjQueryを使用せずに切り替えると、マーカーを切り替えるコントローラの切り替えができなくなるからである。}
+  \end{description}
+  \begin{center}
+     \begin{figure}[htp]
+    \includegraphics[clip,scale=0.4]{gairyakumap.png}
+    \caption{概略図}
+   \end{figure}
+\end{center}
+  \section{\large 機能}
+  \textmc{本項では、ハザードマップの主な機能について解説していく。}
+  \subsection{地図データ}
+ \textmc{地図のデータは国土地理院と国土交通省のデータを用いている。読み込んだデータはKMLという拡張子に直され、leaflet-omnivoreというleaflet.jsの機能を用いて見ることができるようになる。これらのデータを用いた理由は、官公庁のデータを用いることにより、マップの信頼性を向上させることができるからである。}
+  \subsection{位置情報読み込み機能}
+ \textmc{ 位置情報はHTML5で標準化されたGeolocation APIを用いて取得する。
+  この位置情報はGPS衛星から与えられた情報を基地局を通して獲得したものである。ハザードマップにおける位置情報の利点は、災害発生後に土地勘の無い場所に避難してきた場合、安全が確保しにくいため、情報伝達を保管する方法として、現在位置に応じた避難に有用な情報をスマートフォンを通じて提供することができる点にある。この方法はすでに国土交通省も行っており、位置情報に合わせて情報提供も行うことも可能と言われている。}
+  \begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.3]{gps.png}
+    \caption{位置情報取得の例}
+   \end{figure}
+\end{center}
+  \subsection{経緯度表示機能}
+  避難所の場所や火災や津波がどこで発生しているのかを調べるために実装した。
+  latlngを用いることで、詳細な緯度経度の取得が可能になった。latlngとは位置座標の結果
+  を作成するためのleaflet.jsの定義クラスで、JSONなどの形式に変換することが可能である。
+  \subsection{マーカー切り替え機能}
+  leafletの機能の中に、切り替える機能があり、地図タイルレイヤの切り替えがよく知られているが、L.tileListをL.bindpopupに変更することで、マーカーを切り替えるようになる。
+  避難所、危険区域、過去の震央、津波到達域の切り替えをすることができ、避難所の近くに
+  二次災害が予想される危険区域があったり、再び起こりやすい過去の震央を調べておくことで
+  防災意識の向上に役立たせるというのが狙いである。
+  \subsection{印刷機能}
+  JavaScriptのメソッドの一つであるprintと、スクレイピング機能を用いた紙媒体への印刷機能を実装することで高齢者でも扱えることが可能になった。スクレイピングとはWeb上の情報を加工して使いやすくする機能で、これを使うことで、表示範囲の印刷が可能となる。しかも大量に発行することができるため、事前に印刷しておくことで防災意識の向上に繋げることができる。自然災害が発生するとインターネットが繋がらなくなるおそれがあるので、Web地図は意味をなさなくなる。その代わり事前に印刷しておいた紙媒体の地図を使うことで、避難に役立たせることを想定して実装している。
+   \begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.3]{print4.png}
+    \caption{印刷機能を用いて印刷した例}
+   \end{figure}
+     \end{center}
+  \subsection{津波到達予測範囲の可視化}
+  津波や最上川の洪水がどの辺まで及ぶかを表示するのに使われている。ポリゴンとは、レイヤー上に表示される２次元の図や画像のことで、leaflet.jsWeb地図上では地域の色分け等に用いられている。leaflet.jsでのポリゴンは「L.polygon」を利用して表示される。下の図では、酒田沿岸部や最上川流域が水害の恐れがある範囲にポリゴンが表示されている。周辺の黄色い印はマーカーであり、各地の避難所を表している。
+   \begin{center}
+   \begin{figure}[htp]
+    \includegraphics[clip,scale=0.2]{spagetti.png}
+    \caption{ポリゴンの表示例}
+   \end{figure}
+\end{center}
+  \section{考察}
+  このWebハザードマップが実現すれば、住民自身の防災意識が高まり、より行政と住民同士の
+  共助関係が深まっていくと考えられる。これは鶴岡市の例であるが、ハザードマップを作成していない地域が全体の3割いるとされ、紙媒体のみのハザードマップでは限界があると考えられる。 \begin{center}
+    \begin{figure}[htp]
+      \centering
+     \includegraphics[clip,scale=0.3]{grah.png}
+     \caption{鶴岡市内のハザードマップ作成状況のグラフ　出典：鶴岡市 防災安全課}
+   \end{figure}
+  \end{center}
+   \begin{center}
+   \begin{figure}[htp]
+     \includegraphics[clip,scale=0.2]{wave.png}
+     \caption{津波ハザードマップに記載のある地域の取り組みを示したグラフ　出典：鶴岡市 防災安全課}
+   \end{figure}
+  \end{center}
+  最近の行政のホームページではハザードマップがPDF化されており、誰もがダウンロードして
+  見ることができる。しかしダウンロードしたとしても時間が経つにつれ忘れてしまったり、忙しくて見る時間がなかったり、自然災害についてのイメージを固めてしまう可能性もある[5]。なぜならば、「自分の所は大丈夫」という思い込みや、実際の情報と照らしあわせて震度やマグニチュードなどの測定値が低かった場合に安心感を持ってしまうからだ。自然災害は何が起きるか分からず、弱い地震が発生した後に巨大地震が発生する場合もある。この地図も位置情報を読み取る機能が付いているため、
+  地震や津波が深刻な場所から遠かった場合は安心してしまうかもしれない。ゆえに、スマートフォンでハザードマップを見れるようにすることで、住民が常に防災意識を持つようになり、災害についての理解度を深めることに貢献できると考えられる。
+     \section{今後の展望}
+酒田市のみの範囲となったが、山形県全域を含めたハザードマップを作成していきたいと考えている。特に内陸では火災や土砂災害が二次災害として発生する傾向にあるので、これらを考慮したマップになっていくと考えられる。また、位置情報取得機能は自然災害だけでなく、突然の事故においても効果を発揮することができるだろうと考えられる。例えば登山中の遭難事故や、スキューバダイビング中に流されてしまった場合などの、行方不明者の捜索に使うことができるのではないだろうか。警察庁の統計によると、2018年度で男女含め約9万人の行方不明者が存在すると言われている[6]。しかも、特に20代の行方不明者が増えているという。彼らは情報端末は持っていると思われるので、もし位置情報取得機能を応用すれば彼らの捜索に使えるのではないかと考えられる。
+     \section{\large 実際の作成物}
+なお、実際の作成物はこちらのURLとQRコードで確認、利用が可能である。
+   \begin{center}
+   \begin{figure}[htp]
+     \includegraphics[clip,scale=0.4]{cord.png}
+     \caption{https:\slash\slash{}github.com\slash{}koeki-soturon\slash{}hazard\slash{}map.html}
+   \end{figure}
+   \end{center}
+   \begin{thebibliography}{9}
+   \bibitem[1]C.Allin Cornel(1999)"Dissaggregation of Seismic Hazard''Bulletin of the Seismological Society of America,89(2):pp.1-20
+     http:\slash\slash{}sismologia.ist.utl.pt\slash{}~sismologia.daemon\slash{}files\slash{}Bazurro and Cornell Disaggregation of Seismic Hazard.pdf
+   \bibitem[2]田鍋 敏也(2013)「2000年有珠山噴火における火山防災マップの活用実践例」,防災科学技術研究所研究資料,380号,pp.1-4
+     http:\slash\slash{}vivaweb2.bosai.go.jp\slash{}v-hazard\slash{}pdf\slash{}13.pdf
+   \bibitem[3]鈴木 康弘(2018)「科学研究費助成事業 研究成果報告書」,名古屋大学,pp.3
+     https:\slash\slash{}kaken.nii.ac.jp\slash{}ja\slash{}file\slash{}KAKENHI-PROJECT-15H02959\slash{}15H02959seika.pdf
+      \bibitem[4]地震調査委員会(2003),「日本海東縁部の地震活動の長期評価について」,地震調査研究推進本部,
+        https://www.jishin.go.jp/main/chousa/03jun nihonkai/index.html<2019-11-20参照>
+      \bibitem[5]片田 敏孝(2005),「洪水ハザードマップの公表効果とその問題点ー日本を事例にー」,韓国土木学会研究発表会概要集,pp.1-2
+        http://www.katada-lab.jp/doc/n099.pdf
+ \bibitem[6]警察庁生活安全局生活安全企画課(2019),「平成30年における行方不明者の状況」,警察庁,pp.1-7
+   https://www.npa.go.jp/safetylife/seianki/fumei/H30yukuehumeisha.pdf
+     \end{thebibliography}
+\end{document}

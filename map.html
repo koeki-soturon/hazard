@@ -2,8 +2,9 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
+    <meta name="robots" content="noindex"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=yes" />
     <title>酒田市内Webハザードマップ</title>
-
     <script type="text/javascript" href="jquery-2.1.0.min.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
@@ -14,19 +15,18 @@
     crossorigin=""></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.4/leaflet-omnivore.min.js"></script>
-
     <!-- plugin -->
     <script src="dist/leaflet.sprite.js"></script>
 <!-- plugin -->
-	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
-		#map {
-			width: 600px;
-			height: 400px;
-		}
+<style>
+  body {
+      padding: 0;
+      margin: 0;
+    }
+    html, body, #mapid {
+      height: 100%;
+      widht: 100vw;
+    }
 	</style>
 	  <script>
     function PrintScript() {
@@ -41,6 +41,7 @@
     window.document.body.innerHTML = htmlcode;
 }
 	  </script>
+
   </head>
   <body>
 <h1>酒田市地震ハザードマップ</h1>
@@ -91,7 +92,7 @@ pointToLayer: function (feature, layer) {
 return L.marker(layer, { icon: ParkIcon });
 }}).addTo(map);
 
-var Map_KML = omnivore.kml('P20-1207.kml', null, Map_KML_Property);
+var Map_KML = omnivore.kml('default.kml', null, Map_KML_Property);
 
 
 var Map_b = {
@@ -106,33 +107,22 @@ var Map_b = {
  L.Icon.Default.imagePath = 'https://unpkg.com/leaflet@1.3.1/dist/images/';
 var aa = L.marker([38.9, 139.25],{icon: L.spriteIcon()}).bindPopup('庄内沖地震震央(1833年） <br>震度6の海溝型地震'),
 bb = L.marker([38.9,139.9]).bindPopup('庄内地震震央(1894年）<br> 震度7の内陸直下型地震'),
-cc = L.marker([38.161209, 140.597989],{icon: L.spriteIcon('green')}).bindPopup('CC'),
-dd = L.marker([38.14350, 140.58775],{icon: L.spriteIcon('orange')}).bindPopup('DD'),
-ee = L.marker([38.14989, 140.59094],{icon: L.spriteIcon('yellow')}).bindPopup('EE'),
-ff = L.marker([38.15958, 140.60608],{icon: L.spriteIcon('purple')}).bindPopup('FF');
+cc = L.marker([38.8936044,139.8191921]).bindPopup('東北公益文科大学南駐車場 <br>森林に囲まれていて涼しい。高台なので津波にも対応可能'),
+dd = L.marker([38.9039735,139.836983],{icon: L.spriteIcon('red')}).bindPopup('若竹西公園 <br>庄内沖と最上川に囲まれているの津波の恐れあり。風通しの良い場所なので涼しい。'),
+ee = L.marker([38.9060723, 139.8471038],{icon: L.spriteIcon('blue')}).bindPopup('亀ヶ崎小学校体育館<br>小学校の体育館ではストーブを貸してくれる可能性あり'),
+ff = L.marker([38.9029631,139.8471038],{icon: L.spriteIcon('yellow')}).bindPopup('亀ヶ崎公園 <br>休憩所や水飲み場があり、頑丈な石垣もあるので夏や冬の厳しい環境にも対応できる');
 
-var restaurants = L.layerGroup([aa, bb]);
-var sport = L.layerGroup([cc, dd]);
-var sights = L.layerGroup([ee, ff]);
+var jisin = L.layerGroup([aa, bb]);
+var summer = L.layerGroup([cc, dd]);
+var winter = L.layerGroup([ee, ff]);
 var overlayMaps = {
-"過去の地震": restaurants,
-"津波到達度": sport,
-"洪水の避難所": sights
+"過去の地震": jisin,
+"夏の避難所": summer,
+"冬の避難所": winter
 };
 
 L.control.layers(overlayMaps).addTo(map);
 
-var mapMarker = L.marker([38.9039735,139.836983], { icon: L.spriteIcon('orange')}).addTo(map);
-var comment = '若竹西公園 <br>日本海〜最上川汽水域にある公園なので震度５以上の強い地震の場合はこの公園への避難はやめた方が良い。規模は狭めで３０人以上の避難は適していない。';
-mapMarker.bindPopup(comment).openPopup();
-
-var mapMarker = L.marker([38.9029631,139.8471038], { icon:  L.spriteIcon('yellow')}).addTo(map);
-var comment = '亀ヶ崎公園 <br> かなり広めで水飲み場もあり、内陸部に作られているので巨大地震が発生した際の避難には最適。城跡ということもあり頑丈な石垣もあるので津波に強い。';
-mapMarker.bindPopup(comment).openPopup();
-
-var mapMarker = L.marker([38.9060723,139.8429659], { icon:  L.spriteIcon() }).addTo(map);
-var comment = '亀ヶ崎小学校 <br> ';
-mapMarker.bindPopup(comment).openPopup();
 
 var mapMarker = L.marker([38.9190069,139.82804829], { icon:  L.spriteIcon('green')}).addTo(map);
 var comment = '日和山公園 <br>高台に作られているため巨大地震が発生した際の避難には最適。ただし避難後の混雑は注意しておいた方が良い。 ';
@@ -142,9 +132,7 @@ var mapMarker = L.marker([38.85916599,139.9564960], { icon:  L.spriteIcon('red')
 var comment = 'sample <br> 北新町一丁目公園';
 mapMarker.bindPopup(comment).openPopup();
 
-var mapMarker = L.marker([38.8936044,139.8191921], { icon:  L.spriteIcon('yellow') }).addTo(map);
-var comment = '東北公益文科大学南駐車場 <br> 高台に作られているため津波が到達する心配は低め。ただ海側に近いので地震が収まったら内陸の方へ移動した方が良い。';
-mapMarker.bindPopup(comment).openPopup();
+
 
 var mapMarker = L.marker([38.90241,139.81372639], { icon:  L.spriteIcon('red') }).addTo(map);
 var comment = '若宮町一丁目公園 <br>二丁目と違い、やや山地の方に作られているが、海側であるため一時的な避難でしか適していない。 ';
@@ -187,8 +175,9 @@ map.on('click', function(e) {
  
       map.locate({setView: true, maxZoom: 16, timeout: 20000});
  
-//縮尺  
-L.control.scale({ maxWidth: 250, imperial: false }).addTo(map);
+ //縮尺
+             
+ L.control.scale({ maxWidth: 250, imperial: false }).addTo(map);
 
 L.control.layers(Map_b, null, { collapsed: false }).addTo(map);
 

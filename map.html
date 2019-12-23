@@ -105,12 +105,12 @@ var Map_b = {
 
 
  L.Icon.Default.imagePath = 'https://unpkg.com/leaflet@1.3.1/dist/images/';
-var aa = L.marker([38.9, 139.25],{icon: L.spriteIcon()}).bindPopup('庄内沖地震震央(1833年） <br>震度6の海溝型地震'),
-bb = L.marker([38.9,139.9]).bindPopup('庄内地震震央(1894年）<br> 震度7の内陸直下型地震'),
-cc = L.marker([38.8936044,139.8191921]).bindPopup('東北公益文科大学南駐車場 <br>森林に囲まれていて涼しい。高台なので津波にも対応可能'),
-dd = L.marker([38.9039735,139.836983],{icon: L.spriteIcon('red')}).bindPopup('若竹西公園 <br>庄内沖と最上川に囲まれているの津波の恐れあり。風通しの良い場所なので涼しい。'),
-ee = L.marker([38.9060723, 139.8471038],{icon: L.spriteIcon('blue')}).bindPopup('亀ヶ崎小学校体育館<br>小学校の体育館ではストーブを貸してくれる可能性あり'),
-ff = L.marker([38.9029631,139.8471038],{icon: L.spriteIcon('yellow')}).bindPopup('亀ヶ崎公園 <br>休憩所や水飲み場があり、頑丈な石垣もあるので夏や冬の厳しい環境にも対応できる');
+var aa = L.marker([38.9, 139.25],{icon: L.spriteIcon()}).bindPopup('<h2>庄内沖地震震央(1833年）</h2><br>震度6の海溝型地震'),
+bb = L.marker([38.9,139.9]).bindPopup('<h2>庄内地震震央(1894年）</h2><br> 震度7の内陸直下型地震'),
+cc = L.marker([38.8936044,139.8191921]).bindPopup('<h2>東北公益文科大学南駐車場 </h2><br>森林に囲まれていて涼しい。高台なので津波にも対応可能'),
+dd = L.marker([38.9039735,139.836983],{icon: L.spriteIcon('red')}).bindPopup('<h2>若竹西公園 </h2><br>庄内沖と最上川に囲まれているの津波の恐れあり。風通しの良い場所なので涼しい。'),
+ee = L.marker([38.9060723, 139.8471038],{icon: L.spriteIcon('blue')}).bindPopup('<h2>亀ヶ崎小学校体育館</h2><br>小学校の体育館ではストーブを貸してくれる可能性あり'),
+ff = L.marker([38.9029631,139.8471038],{icon: L.spriteIcon('yellow')}).bindPopup('<h2>亀ヶ崎公園</h2> <br>休憩所や水飲み場があり、頑丈な石垣もあるので夏や冬の厳しい環境にも対応できる');
 
 var jisin = L.layerGroup([aa, bb]);
 var summer = L.layerGroup([cc, dd]);
@@ -182,6 +182,15 @@ map.on('click', function(e) {
 L.control.layers(Map_b, null, { collapsed: false }).addTo(map);
 
 </script>
+<h1>地図のただしい見方</h1>
+地震ハザードマップは地震と津波から自分の身を守るために作成された地図です。<br>
+<img src="sprite.png">・・・津波到達範囲に非常に近い避難所を表しています。津波を伴う
+地震が観測された際は行ってはいけません。<br>
+<img src="sprite4.png">・・・津波到達範囲に近い避難所を表しています。津波の被害が出る恐れがあるので避難は控えた方が良いです。<br>
+<img src="sprite3.png">・・・津波到達範囲から遠い避難所を表しています。大きな津波がこない限り避難所としては機能します。<br>
+<img src="sprite2.png">・・・津波の問題がほとんどない避難所を表しています。とても高い高台に設けられた避難所が多いので、ここまでくれば安全です。<br>
+<img src="sprite1.png">・・・警察署や消防署、市役所を表しています。食料の供給や避難物資の供給では司令塔を担う立場にあります。停電などで電話やメールが繋がらない場合、このアイコンがある場所まで行けば貰えます。<br>
+
 
   </body>
 </html>

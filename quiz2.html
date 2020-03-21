@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="charset=shift_jis">
+<title>NIHONSHI QUIZ</title>
+<script type="text/javascript">
+
+//出題数を設定
+var q_num=5;
+
+//問題カウンタ
+var cnt=0;
+
+//正解数を入れる変数
+var pnt=0;
+
+//クイズの問題を入れる配列
+var quiz=new Array();
+//初級問題
+quiz[0]=[
+[" 鎌倉時代が成立した時代は? A:1085年 B:1192年 C:1185年","C"],
+["ポルトガルから伝来したのは? A:蒸気船 B:鉄砲 C:仏教","7"],
+["17条の憲法を作った人は? A:聖徳太子 B:山上憶良 C:藤原鎌足","A"],
+["日本を開国した国は? A:イギリス B:アメリカ C:オランダ","B"],
+["1964年にオリンピックが開催された場所は? A:東京 B:長野 C:札幌","A"]
+];
+//中級問題
+quiz[1]=[
+["三種の神器は剣，勾玉，あとひとつは? A:盾 B:鏡 C:埴輪","B"],
+["鎌倉時代に日本を襲った元の国はどこ? A:中国 B:ロシア C:モンゴル ","C"],
+["室町時代の代表的な建造物はどれ? A:仁王像 B:金閣寺 C:浮世絵","B"],
+["日本の貿易の窓口だった出島はどこ? A:長崎 B:長野 C:大阪","A"],
+["1972年にアメリカから返された県は? A:鹿児島 B:高知 C:沖縄","C"]
+];
+//上級問題
+quiz[2]=[
+["大森貝塚から発掘されたのは? A:埴輪 B:縄文土器 C:矢尻が刺さった人骨","B"],
+["紀貫之の作品は? A:土佐日記 B:更級日記 C:吾妻鏡","A"],
+["長篠の戦いが起きた年は? A:1555年 B:1560年 C:1575年","15"],
+["徳川吉宗の起こした改革は? A:寛政の改革 B:享保の改革 C:天保の改革","20"],
+["戦後の3C カラーテレビ,クーラー,あと一つは? A:カメラ B:コンピューター C:自動車","25"]
+];
+
+//出題問題を入れる配列
+var ques=new Array();
+
+//関数 startQuiz の定義
+function startQuiz(n){
+    //出題問題を作成
+    for(var i=0; i<q_num; i++){
+        var r=Math.floor(Math.random()*quiz[n].length);
+        ques[i]=quiz[n].splice(r,1)[0];
+    }
+    //問題を表示
+    document.getElementById("sentaku").style.display="none";
+    document.getElementById("mondai").style.display="block";
+    document.getElementById("toi").innerHTML=ques[cnt][0];
+}
+
+//関数 judgeQuiz の定義
+function judgeQuiz(){
+    if(document.getElementById("kai").value==ques[cnt][1]){
+        alert("正解！");
+        pnt++;
+    }else{
+        alert("残念！\n正解は→" +ques[cnt][1]);
+    }
+    document.getElementById("kai").value="";
+    if(cnt<q_num-1){
+        cnt++;
+        document.getElementById("toi").innerHTML=ques[cnt][0];
+    }else{
+        document.getElementById("mondai").style.display="none";
+        document.getElementById("owari").style.display="block";
+        document.getElementById("ten").innerHTML
+        ="得点は " +Math.round(100*pnt/q_num)+ " 点です。";
+    }
+}
+
+</script>
+</head>
+<body>
+
+<div id="sentaku">
+<p>～英語クイズ～</p>
+◎難易度を選択→
+<button onclick="startQuiz(0)">初級</button>
+<button onclick="startQuiz(1)">中級</button>
+<button onclick="startQuiz(2)">上級</button>
+</div>
+
+<div id="mondai" style="display:none;">
+<p>◎問題</p>
+<p id="toi"></p>
+<p>
+<input size="5" id="kai">
+<button onclick="judgeQuiz()">OK</button>
+</p>
+</div>
+
+<div id="owari" style="display:none;">
+<p>◎終了</p>
+<p id="ten"></p>
+<button onclick="location.reload()">リトライ</button>
+</div>
+
+</body>
+</html>

@@ -45,7 +45,28 @@
 	  </script>
   </head>
   <body>
-<h1>酒田市地震ハザードマップ</h1>
+    <h1>酒田市地震ハザードマップ</h1>
+    <h2>地図を扱っていただく前に説明書を読んでいただきます。</h2>
+    <details>
+      <summary>この地図を使う前にここをクリックして、説明書を読んでください。</summary>
+      <h2>なぜこの地図が作られたのか</h2>
+      この地図は人々を安全に避難させるために作られた地図です。将来、日本では巨大地震が発生する可能性が高いです。それはどこで起こるか分かりません。海と陸の２つの断層に囲まれた庄内地域も安全ではありません。信頼していた避難所に津波が来ることもありうるでしょう。そこで正しい知識を持ってもらおうと思い、このハザードマップを作成しました。
+      <details>
+	
+    <summary>地図のただしい見方</summary>
+地震ハザードマップは地震と津波から自分の身を守るために作成された地図です。<br>
+<img src="sprite.png">・・・津波到達範囲に非常に近い避難所を表しています。津波を伴う
+地震が観測された際は行ってはいけません。<br>
+<img src="sprite4.png">・・・津波到達範囲に近い避難所を表しています。津波の被害が出る恐れがあるので避難は控えた方が良いです。<br>
+<img src="sprite3.png">・・・津波到達範囲から遠い避難所を表しています。大きな津波がこない限り避難所としては機能します。<br>
+<img src="sprite2.png">・・・津波の問題がほとんどない避難所を表しています。とても高い高台に設けられた避難所が多いので、ここまでくれば安全です。<br>
+    <p><img src="sprite1.png">・・・警察署や消防署、市役所を表しています。食料の供給や避難物資の供給では司令塔を担う立場にあります。停電などで電話や</p>メールが繋がらない場合、このアイコンがある場所まで行けば貰えます。今はエラーが生じてしまっているので表示ができません。<br>
+      </details>
+      <details>
+	<summary>東北地方の地震の歴史</summary>
+	東北地方での地震の歴史は古く、東北で最古の地震記録は酒田市周辺から出ています。また、880年には太平洋沿岸部で貞観地震が起きており、この頃から自然災害が耐えないところであると予想されます。戦国時代から江戸時代にかけて地震や津波の記録が増えていきました。
+      </details>
+    </details>
 	  <a onClick="PrintScript();"><image src="copy.png" alt="印刷"/></a>
 <!--PrintStart-->
 <div id="map" style="height: 500px; width: 800px;"></div>
@@ -111,7 +132,7 @@ var aa = L.marker([38.9, 139.25],{icon: L.spriteIcon()}).bindPopup('庄内沖地
 bb = L.marker([38.9,139.9]).bindPopup('庄内地震震央(1894年）<br> 震度7の内陸直下型地震'),
 cc = L.marker([38.8936044,139.8191921].bindPopup('東北公益文科大学南駐車場 <br>森林に囲まれていて涼しい。高台なので津波にも対応可能'),
 dd = L.marker([38.9039735,139.836983].bindPopup('若竹西公園 <br>庄内沖と最上川に囲まれているので大きい地震での避難には適していない。風通しの良い場所なので涼しい。'),
-ee = L.marker([38.9060723, 139.8471038],{icon: L.spriteIcon('blue')}).bindPopup('亀ヶ崎小学校体育館<br>小学校の体育館ではストーブを貸してくれる可能性あり'),
+ee = L.marker([38.9060723,139.8471038],{icon: L.spriteIcon('blue')}).bindPopup('亀ヶ崎小学校体育館<br>小学校の体育館ではストーブを貸してくれる可能性あり'),
 ff = L.marker([38.9029631,139.8471038],{icon: L.spriteIcon('yellow')}).bindPopup('亀ヶ崎公園 <br>休憩所や水飲み場があり、頑丈な石垣もあるので夏や冬の厳しい環境にも対応できる');
  
 var jisin = L.layerGroup([aa, bb]);
@@ -134,11 +155,11 @@ var mapMarker = L.marker([38.85916599,139.9564960], { icon:  L.spriteIcon('red')
 var comment = '北新町一丁目公園<br> ';
  mapMarker.bindPopup(comment).openPopup();
  
- var mapMarker = L.marker([38.914427,139.836535], { icon:  L.spriteIcon('purple') }).addTo(map);
+var mapMarker = L.marker([38.914427,139.836535], { icon:  L.spriteIcon('purple') }).addTo(map);
 var comment = '酒田市役所<br> 酒田市の行政を統括する市役所。電話ができない時はここまで行こう。海側にあるのがネック';
  mapMarker.bindPopup(comment).openPopup();
  
- var mapMarker = L.marker([38.915697,139.836898], { icon:  L.spriteIcon('purple') }).addTo(map);
+var mapMarker = L.marker([38.915697,139.836898], { icon:  L.spriteIcon('purple') }).addTo(map);
 var comment = '酒田市交番<br> 酒田市の治安を守る交番。最低限の食料は確保してもらえる。';
 mapMarker.bindPopup(comment).openPopup();
  
@@ -146,11 +167,11 @@ var mapMarker = L.marker([38.916527,139.832057], { icon:  L.spriteIcon('purple')
 var comment = '消防署<br> 火災の他に，津波やガス漏れ，地震の時も対処してくれるぞ。';
  mapMarker.bindPopup(comment).openPopup();
  
- var mapMarker = L.marker([38.915697,139.836898], { icon:  L.spriteIcon('purple') }).addTo(map);
+var mapMarker = L.marker([38.915697,139.836898], { icon:  L.spriteIcon('purple') }).addTo(map);
 var comment = '酒田市自衛隊派出所<br> 大災害で社会インフラが狂ったら，ここから水だとか食料を持ってきてくれる。';
  mapMarker.bindPopup(comment).openPopup();
  
- var mapMarker = L.marker([38.928399,139.859583], { icon:  L.spriteIcon('purple') }).addTo(map);
+var mapMarker = L.marker([38.928399,139.859583], { icon:  L.spriteIcon('purple') }).addTo(map);
 var comment = '酒田市警察署<br> 交番でも対処しきれない時は警察署の出番だ。';
  mapMarker.bindPopup(comment).openPopup();
  

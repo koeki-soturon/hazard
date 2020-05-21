@@ -1,0 +1,209 @@
+<！DOCTYPE HTML>
+<html lang = "ja" > 
+  <ヘッド>
+    <メタ文字セット= "utf-8" > 
+     <meta name = "robots" content = "noindex" />  
+    <meta name = "viewport" content = "width = device-width、initial-scale = 1.0、user-scalable = yes" /
+    <title> 酒田市内Webハザードマップ</ title>
+ 
+    <script type = "text / javascript" href = "jquery-2.1.0.min.js" > </ script>  
+    <link rel = "ショートカットアイコン" type = "image / x-icon" href = "favicon.ico" />    
+    <link rel = "stylesheet" href = "https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"  
+    整合性= "sha512-puBpdR0798OZvTTbP4A8Ix / l + A4dHDD0DGqYW6RQ + 9jxkRFclaxxQb / SJAWZfWAkuyeQUytO7 + 7N4QKrDh + drA =="
+    crossorigin = "" />
+    <script src = "https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" 
+    整合性= "sha512-nMMmRyTVoLYqjP9hrbed9S + FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA =="
+    crossorigin = "" > </ script>
+    
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.4/leaflet-omnivore.min.js" > </ script> 
+ 
+    <！-プラグイン->
+    <script src = "dist / leaflet.sprite.js" > </ script> 
+<！-プラグイン->
+	<スタイル>
+	 本文{
+      パディング：0 ; 
+      マージン：0 ; 
+    }
+    html 、body 、#mapid { 
+      高さ：100 ％; 
+      widht ：100vw ; 
+    }
+	</ style>
+	  <スクリプト>
+    関数PrintScript （）{  
+    //印刷範囲を設定
+    htmlcode = window 。ドキュメント。体。innerHTML ; 
+    sprnstr   = "<！-PrintStart->" ;  
+    eprnstr   = "<！-PrintEnd->" ;  
+    var prnhtml = htmlcode 。SUBSTR （htmlcode 。のindexOf （sprnstr ）+ sprnstr 。長さ） 
+    prnhtml = prnhtml 。サブストリング（0 、prnhtml 。のindexOf （eprnstr ））。 
+    ウィンドウ。ドキュメント。体。innerHTML = prnhtml ; 
+    ウィンドウ。印刷（）; 
+    ウィンドウ。ドキュメント。体。innerHTML = htmlcode ;
+}
+	  </ script>
+  </ head>
+  <ボディ>
+<h1> 酒田市地震ハザードマップ</ h1>
+	  <a のonClick = "PrintScript ();"> <画像SRC = "copy.png" ALT = "印刷" />する</a>   
+<！-PrintStart->
+<div id = "map" style = " height ：500px ; width ：800px ; " > </ div>    
+<！-PrintEnd->
+ 
+<スクリプト>
+  
+ //それぞれの地図に英語
+VAR m_mono = 新しいL 。tileLayer （'https://tile.mierune.co.jp/mierune_mono/ { z }/{x}/{ y}.png ' 、{  
+    帰属："CC BYの下の<a href='http://mierune.co.jp/' target='_blank'> MIERUNE </a>によるMaptiles。<a href = 'http：// osm。 org / copyright 'target =' _ blank '> OpenStreetMap </a>貢献者、ODbLの下。 " 
+}）;
+ 
+VaRのm_color = 新しいL 。tileLayer （'https://tile.mierune.co.jp/mierune/ { z }/{x}/{ y}.png ' 、{  
+    帰属："CC BYの下の<a href='http://mierune.co.jp/' target='_blank'> MIERUNE </a>によるMaptiles。<a href = 'http：// osm。 org / copyright 'target =' _ blank '> OpenStreetMap </a>貢献者、ODbLの下。 " 
+}）;
+ 
+VaRのt_pale = 新しいL 。tileLayer （'http://cyberjapandata.gsi.go.jp/xyz/pale/ { z }/{x}/{ y}.png ' 、{  
+    帰属：「<a href='http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html' target='_blank'>国土地理院</a>」 
+}）;
+ 
+VaRのt_ort = 新しいL 。tileLayer （'http://cyberjapandata.gsi.go.jp/xyz/ort/ { z }/{x}/{ y}.jpg ' 、{  
+    帰属：「<a href='http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html' target='_blank'>国土地理院</a>」 
+}）;
+ 
+VAR o_std = 新しいL 。tileLayer （'http：// {s} .tile.openstreetmap.org / {z} / {x} / {y} .png' 、{  
+    帰属：'＆amp; copy; <a href="http://osm.org/copyright"> OpenStreetMap </a>寄稿者 
+}）;
+ 
+VaRのマップ= L 。map （'map' 、{ 
+    センター：[ 38.893394 、139.820519 ]、 
+    ズーム：13 、 
+    zoomControl ：true 、 
+    レイヤー：[ o_std ] 
+}）;
+ 
+VAR ParkIcon = L 。アイコン（{  
+iconUrl ：'favicon.ico' 、 
+iconRetinaUrl ：'favicon.ico' 、 
+iconSize ：[ 30 、30 ]、  
+iconAnchor ：[ 25 、20 ]、  
+popupanchor ：[ 0 、- 30 ]  
+}）;
+ 
+VAR Map_KML_Property = L 。geoJson （null 、{   
+pointToLayer ：function （feature 、layer ）{   
+Lを返します。マーカー（レイヤー、{ アイコン：ParkIcon }）;   
+}}）。addTo （map ）;
+ 
+VAR Map_KML = 雑食。kml （'default.kml' 、null 、Map_KML_Property ）;    
+ 
+ 
+var Map_b = {   
+    「MIERUNE地図カラー」：m_color 、
+    「MIERUNE地図モノ」：m_mono 、
+    "地理院地図淡色" ：t_pale 、
+    "地理院地図オルソ" ：t_ort 、
+    「OpenStreetMap標準」：o_std
+};
+ 
+ 
+L 。アイコン。デフォルト。imagePath = 'https://unpkg.com/leaflet@1.3.1/dist/images/' ; 
+VaRのAA = L 。マーカー（[ 38.9 、139.25 ]、{ アイコン：L 。spriteIcon （）}）。bindPopup （'庄内沖地震震央（1833年）<br>震度6の海溝型地震' ）、 
+BB = L 。マーカー（[ 38.9 、139.9 ]）。bindPopup （'庄内地震震央（1894年）<br>震度7の内陸直下型地震' ）、
+CC = L 。マーカー（[ 38.8936044 、139.8191921 ]。bindPopup （'東北公益文科大学南駐車場<BR>森林に囲まれていて涼しい。高台なので津波にも対応可能' ）、
+DD = L 。マーカー（[ 38.9039735 、139.836983 ]。bindPopup （'若竹西公園<BR>庄内沖と最上川に囲まれているので大きい地震での避難には適していない。風通しの良い場所なので涼しい。' ）、
+EE = L 。マーカー（[ 38.9060723 、139.8471038 ]、{ アイコン：L 。spriteIcon （'青' ）}）。bindPopup （' 亀ヶ崎小学校体育館<br>小学校の体育館ではストーブを貸してくれる可能性あり' ）、 
+FF = L 。マーカー（[ 38.9029631 、139.8471038 ]、{ アイコン：L 。spriteIcon （'黄色' ）}）。bindPopup （' 亀ヶ崎公園<br>休憩所や水飲み場があり、頑丈な石垣もあるので夏や冬の厳しい環境にも対応できる' ）;
+ 
+VaRのjisin = L 。layerGroup （[ aa 、bb ]）;
+VaRの夏= L 。layerGroup （[ cc 、dd ]）;
+VaRの冬= L 。layerGroup （[ ee 、ff ]）;
+var overlayMaps = { 
+"過去の地震" ：jisin 、
+"夏の避難所" ：夏、
+ 「冬の避難所」：冬
+};
+ 
+L 。コントロール。レイヤー（overlayMaps ）。addTo （map ）;
+ 
+ 
+VaRのmapMarker = L 。マーカー（[ 38.9190069 、139.82804829 ]、{ アイコン：  L 。spriteIcon （'グリーン' ）}）。addTo （map ）; 
+var comment = '日和山公園<br>高台に作られているため巨大地震が発生した際の避難には最適。ただし避難後の混雑は注意しておいた方が良い。' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+VaRのmapMarker = L 。マーカー（[ 38.85916599 、139.9564960 ]、{ アイコン：  L 。spriteIcon （'赤' ）}）。addTo （map ）;  
+var comment = '北新町一丁目公園<br>' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+ VaRのmapMarker = L 。マーカー（[ 38.914427 、139.836535 ]、{ アイコン：  L 。spriteIcon （'紫' ）}）。addTo （map ）;  
+var comment = '酒田市役所<br>酒田市の行政を統括する市役所。電話ができない時はここまで行こう。海側にあるのがネック' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+ VaRのmapMarker = L 。マーカー（[ 38.915697 、139.836898 ]、{ アイコン：  L 。spriteIcon （'紫' ）}）。addTo （map ）;  
+var comment = '酒田市交番<br>酒田市の治安を守る交番。最低限の食料は確保してもらえる。' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+VaRのmapMarker = L 。マーカー（[ 38.916527 、139.832057 ]、{ アイコン：  L 。spriteIcon （'紫' ）}）。addTo （map ）;  
+var comment = '消防署<br>火災の他に、津波やガス漏れ、地震の時も対処してくれるぞ。' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+ VaRのmapMarker = L 。マーカー（[ 38.915697 、139.836898 ]、{ アイコン：  L 。spriteIcon （'紫' ）}）。addTo （map ）;  
+var comment = '酒田市自衛隊派出所<br>大災害で社会インフラが狂ったら、ここから水だとか食料を持ってきてくれる。' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+ VaRのmapMarker = L 。マーカー（[ 38.928399 、139.859583 ]、{ アイコン：  L 。spriteIcon （'紫' ）}）。addTo （map ）;  
+var comment = '酒田市警察署<br>交番でも対処しきれない時は警察署の出番だ。' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+VaRのmapMarker = L 。マーカー（[ 38.90241 、139.81372639 ]、{ アイコン：  L 。spriteIcon （'赤' ）}）。addTo （map ）;  
+var comment = '若宮町一丁目公園<br>二丁目と違い、やや山地の方に作られているが、海側であるため一時的な避難でしか適していない。' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+VaRのmapMarker = L 。マーカー（[ 38.8989167 、139.8095490 ]、{ アイコン：  L 。spriteIcon （'赤' ）}）。addTo （map ）;  
+var comment = '若宮町二丁目公園<br>やや広いため、地震の避難場所としては有能であるが、日本海に近いので巨大地震の場合は津波の恐れあり。' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+VaRのmapMarker = L 。マーカー（[ 38.9026232 、139.8220933 ]、{ アイコン：  L 。spriteIcon （'黄色' ）}）。addTo （map ）; 
+var comment = '高見台一丁目公園<br>' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+ 
+VaRのmapMarker = L 。マーカー（[ 38.85916599 、139.9564960 ]、{ アイコン：  L 。spriteIcon （'黄色' ）}）。addTo （map ）;  
+var comment = '琢成学区コミュニティ防災センター駐車場<br>' ; 
+mapMarker 。bindPopup （コメント）。openPopup （）;
+38.9 、139.9
+ 
+ //クリックすると経緯度が出る
+地図。on （'クリック' 、function （e ）{  
+    //クリック位置経緯度取得
+    lat = e 。latlng 。緯度;
+    lng = e 。latlng 。lng ;
+    //経緯度表示
+    アラート（"lat：" + lat + "、lng：" + lng ）;   
+} ）; 
+ 
+//位置情報を取り込む
+ 
+      function onLocationFound （e ）{ 
+          L 。マーカー（E 。緯度経度）。addTo （マップ）。bindPopup （" 現在地" ）。openPopup （）;
+      }
+ 
+      function onLocationError （e ）{ 
+          アラート（"現在地を取得できませんでした。" + e 。メッセージ）; 
+      }
+ 
+      地図。on （'locationfound' 、onLocationFound ）;
+      地図。on （'locationerror' 、onLocationError ）;
+ 
+      地図。ロケート（{ setviewコマンド：真、maxZoom ：16 、タイムアウト：20000 }）。   
+ 
+ //縮尺
+             
+L 。コントロール。スケール（{ maxWidth ：250 、imperial ：false }）。addTo （map ）;   
+ 
+L 。コントロール。レイヤー（Map_b 、null 、{ 折りたたまれた：false }）。addTo （map ）;    
+</script>
+   
+<button class = "sp-mode" style = " display ：none ; " > スマートフォン用で表示</button>  
+<button class = "pc-mode" style = " display ：none ; " > PC用で表示</button>  
+ 
+  </body>
+</html>

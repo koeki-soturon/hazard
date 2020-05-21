@@ -115,7 +115,7 @@ pointToLayer: function (feature, layer) {
 return L.marker(layer, { icon: ParkIcon });
 }}).addTo(map);
  
-var Map_KML = omnivore.kml('default.kml', null, Map_KML_Property);
+var Map_KML = omnivore.kml('map.kml', null, Map_KML_Property);
  
  
 var Map_b = {
@@ -167,7 +167,7 @@ var mapMarker = L.marker([38.916527,139.832057], { icon:  L.spriteIcon('purple')
 var comment = '消防署<br> 火災の他に，津波やガス漏れ，地震の時も対処してくれるぞ。';
  mapMarker.bindPopup(comment).openPopup();
  
-var mapMarker = L.marker([38.915697,139.836898], { icon:  L.spriteIcon('purple') }).addTo(map);
+var mapMarker = L.marker([38.915696,139.836898], { icon:  L.spriteIcon('purple') }).addTo(map);
 var comment = '酒田市自衛隊派出所<br> 大災害で社会インフラが狂ったら，ここから水だとか食料を持ってきてくれる。';
  mapMarker.bindPopup(comment).openPopup();
  

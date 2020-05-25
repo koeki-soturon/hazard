@@ -84,9 +84,10 @@
   document.getElementById("download").href = window.URL.createObjectURL(blob);
   }
   }
-  </script>
-<script>
+</script>
   <a id ="download" href = "switch.png" onclick ="handleDownload()">ダウンロード</a>
+<script>
+
  //それぞれの地図に切り替える
 var m_mono = new L.tileLayer('https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png', {
     attribution: "Maptiles by <a href='http://mierune.co.jp/' target='_blank'>MIERUNE</a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors, under ODbL."

@@ -71,9 +71,22 @@
 <!--PrintStart-->
 <div id="map" style="height: 500px; width: 800px;"></div>
 <!--PrintEnd-->
- 
-<script>
+
+<script type = 'text/javascript'>
+  function handleDownload(){
+  var conten  = '地図です';
+  var blob = new Blob([conten],{"Type" : "test/plain"});
+  if(window.navigator.msSaveBlob){
+  window.navigator.msSaveBlob(blob, "test.txt");
   
+  window.navigator.msSaveOrOpenBlob(blob, "test.txt");
+  }else{
+  document.getElementById("download").href = window.URL.createObjectURL(blob);
+  }
+  }
+  </script>
+<script>
+  <a id ="download" href = "switch.png" onclick ="handleDownload()">ダウンロード</a>
  //それぞれの地図に切り替える
 var m_mono = new L.tileLayer('https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png', {
     attribution: "Maptiles by <a href='http://mierune.co.jp/' target='_blank'>MIERUNE</a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors, under ODbL."
